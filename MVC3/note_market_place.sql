@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2021 at 01:26 PM
+-- Generation Time: Apr 15, 2021 at 03:02 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -163,7 +163,8 @@ INSERT INTO `documents` (`doc_id`, `file_path`, `note_id`, `file_name`, `created
 (30, '../../uploads/notes/documents/C++ Programming1378document.pdf', 34, 'C++ Programming1378document.pdf', '2021-03-12 10:20:19', NULL, NULL, NULL, b'01'),
 (31, '../../uploads/notes/documents/Basics of H/W392document.pdf', 38, 'Basics of H/W392document.pdf', '2021-03-21 06:59:52', NULL, NULL, NULL, b'01'),
 (32, '../../uploads/notes/documents/GST Billing Sys377document.pdf', 39, 'GST Billing Sys377document.pdf', '2021-03-21 07:02:21', NULL, NULL, NULL, b'01'),
-(33, '../../uploads/notes/documents/GST Billing Sys377document.pdf', 40, 'GST Billing Sys377document.pdf', '2021-03-21 07:05:00', NULL, NULL, NULL, b'01');
+(33, '../../uploads/notes/documents/GST Billing Sys377document.pdf', 40, 'GST Billing Sys377document.pdf', '2021-03-21 07:05:00', NULL, NULL, NULL, b'01'),
+(34, '../../uploads/notes/documents/GST Billing Methods30document.pdf', 0, 'GST Billing Methods30document.pdf', '2021-04-15 14:44:16', NULL, NULL, NULL, b'01');
 
 -- --------------------------------------------------------
 
@@ -204,12 +205,12 @@ CREATE TABLE `note` (
 --
 
 INSERT INTO `note` (`note_id`, `title`, `category_id`, `display_img`, `note_type_id`, `number_of_pages`, `description`, `university`, `country`, `cource`, `cource_code`, `professor`, `is_paid`, `price`, `note_preview`, `user_id`, `status_id`, `action_by`, `admin_remark`, `published_date`, `created_date`, `created_by`, `updated_date`, `updated_by`, `is_active`) VALUES
-(13, 'Tech Max', 1, '../../uploads/notes/displayPic/Tech Max90profile.jpg', 1, 12, 'Book of Tech max Publication', 'VVP', 'India', 'Computer Cource', '009', NULL, b'0', '0', '../../uploads/notes/notePreview/Tech Max90preview.', 9, 2, 2, '', '2021-04-07 07:46:22', '2021-03-01 20:44:02', NULL, NULL, NULL, b'01'),
+(13, 'Tech Max', 1, '../../uploads/notes/displayPic/Tech Max90profile.jpg', 1, 12, 'Book of Tech max Publication', 'VVP', 'India', 'Computer Cource', '009', NULL, b'0', '0', '../../uploads/notes/notePreview/Tech Max90preview.', 9, 2, 2, 'Not detailed Content', '0000-00-00 00:00:00', '2021-03-01 20:44:02', NULL, NULL, NULL, b'01'),
 (14, 'C++ Programming', 2, '../../uploads/notes/displayPic/C++ Programming915profile.jpg', 1, 70, 'Book for C++ Progrraming', 'VVP', 'India', 'C++ Cource', '009', 'C++ Cource', b'1', '15', '../../uploads/notes/notePreview/C++ Programming915preview.pdf', 9, 1, NULL, NULL, NULL, '2021-02-25 17:44:32', NULL, NULL, NULL, b'01'),
 (15, 'GST Billing', 3, '../../uploads/notes/displayPic/GST Billing959profile.jpg', 1, 40, 'Book for GST Billing', 'VVP', 'India', 'GST  Cource', '009', 'GST  Cource', b'1', '59', '../../uploads/notes/notePreview/GST Billing959preview.pdf', 9, 3, 2, '', '2021-04-09 05:24:39', '2021-02-24 11:44:59', NULL, NULL, NULL, b'01'),
 (17, 'Tech Max', 1, '../../uploads/notes/displayPic/Tech Max354profile.jpg', 1, 45, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'Institution on master of computer', 'China', 'computer science', '450990', 'computer science', b'1', '54', '../../uploads/notes/notePreview/Tech Max354preview.pdf', 3, 3, 1, NULL, '2021-03-03 18:29:49', '2021-03-02 06:15:46', NULL, NULL, NULL, b'01'),
-(18, 'Basics of Data', 2, '../../uploads/notes/displayPic/Basics of Data343profile.jpg', 1, 76, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'IIT Mumbai', 'India', 'Data science', '60990', 'Data science', b'1', '43', '../../uploads/notes/notePreview/Basics of Data343preview.pdf', 3, 2, 2, '', '0000-00-00 00:00:00', '2021-03-02 07:20:18', NULL, NULL, NULL, b'01'),
-(19, 'Basics of Science', 4, '../../uploads/notes/displayPic/Basics of Science30profile.jpg', 1, 76, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'IIT Khadakpur', 'India', 'Basic of  science', '6754', 'Basic of  science', b'0', '0', '../../uploads/notes/notePreview/Basics of Science30preview.pdf', 3, 4, 1, 'In publishing and graphic design', NULL, '2021-03-02 07:21:33', NULL, NULL, NULL, b'01'),
+(18, 'Basics of Data', 2, '../../uploads/notes/displayPic/Basics of Data343profile.jpg', 1, 76, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'IIT Mumbai', 'India', 'Data science', '60990', 'Data science', b'1', '43', '../../uploads/notes/notePreview/Basics of Data343preview.pdf', 3, 4, 2, 'Not detailed Content', '0000-00-00 00:00:00', '2021-03-02 07:20:18', NULL, NULL, NULL, b'01'),
+(19, 'Basics of Science', 4, '../../uploads/notes/displayPic/Basics of Science30profile.jpg', 1, 76, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'IIT Khadakpur', 'India', 'Basic of  science', '6754', 'Basic of  science', b'0', '0', '../../uploads/notes/notePreview/Basics of Science30preview.pdf', 3, 2, 1, '', NULL, '2021-03-02 07:21:33', NULL, NULL, NULL, b'01'),
 (20, 'Manage Account', 5, '../../uploads/notes/displayPic/Manage Account333profile.jpg', 1, 13, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'CFA', 'India', 'Account Management', 'C098', 'Account Management', b'1', '33', '../../uploads/notes/notePreview/Manage Account333preview.pdf', 3, 4, 2, 'Not a book related to topic', '0000-00-00 00:00:00', '2021-03-02 07:25:56', NULL, NULL, NULL, b'01'),
 (21, 'C++ Programming', 2, '../../uploads/notes/displayPic/C++ Programming336profile.jpg', 1, 13, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'VVP', 'India', 'Computer Cource', 'CC098', 'Computer Cource', b'1', '36', '../../uploads/notes/notePreview/C++ Programming336preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-02 07:24:19', NULL, NULL, NULL, b'01'),
 (22, 'Know Your Country', 3, '../../uploads/notes/displayPic/Know Your Country363profile.jpg', 1, 11, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'Arts College', 'India', 'History ', 'HC098', 'History ', b'1', '63', '../../uploads/notes/notePreview/Know Your Country363preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-02 07:18:59', NULL, NULL, NULL, b'01'),
@@ -220,14 +221,14 @@ INSERT INTO `note` (`note_id`, `title`, `category_id`, `display_img`, `note_type
 (27, 'DBMS', 1, '../../uploads/notes/displayPic/DBMS32profile.jpg', 1, 21, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'D.H Mehta College of Engineering', 'India', 'Computer Engineering', 'IU876', 'Computer Engineering', b'1', '2', '../../uploads/notes/notePreview/DBMS32preview.pdf', 3, 3, NULL, NULL, '2021-03-10 08:44:36', '2021-02-28 10:24:39', NULL, NULL, NULL, b'01'),
 (28, 'Basics of H/W', 2, '../../uploads/notes/displayPic/Basics of HW310profile.jpg', 1, 21, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'D.H Mehta College of Engineering', 'India', 'EC Engineering', 'IU876', 'EC Engineering', b'1', '10', '../../uploads/notes/notePreview/Basics of HW310preview.pdf', 3, 2, NULL, NULL, NULL, '2021-03-01 10:25:08', NULL, NULL, NULL, b'01'),
 (29, 'Basics of H/W tech', 2, '../../uploads/notes/displayPic/Basics of HW310profile.jpg', 1, 21, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'D.H Mehta College of Engineering', 'India', 'EC Engineering', 'IU876', 'EC Engineering', b'1', '10', '../../uploads/notes/notePreview/Basics of HW310preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-02 10:25:37', NULL, NULL, NULL, b'01'),
-(30, 'Basics of H/W', 2, '../../uploads/notes/displayPic/Basics of HW310profile.jpg', 1, 21, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'D.H Mehta College of Engineering', 'India', 'EC Engineering', 'IU876', 'EC Engineering', b'1', '10', '../../uploads/notes/notePreview/Basics of HW310preview.pdf', 3, 5, 2, '', NULL, '2021-03-01 10:25:58', NULL, NULL, NULL, b'01'),
+(30, 'Basics of H/W', 2, '../../uploads/notes/displayPic/Basics of HW310profile.jpg', 1, 21, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'D.H Mehta College of Engineering', 'India', 'EC Engineering', 'IU876', 'EC Engineering', b'1', '10', '../../uploads/notes/notePreview/Basics of HW310preview.pdf', 3, 2, 2, '', '0000-00-00 00:00:00', '2021-03-01 10:25:58', NULL, NULL, NULL, b'01'),
 (31, 'GST Billing', 5, '../../uploads/notes/displayPic/GST Billing332profile.jpg', 1, 76, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'VVP', 'India', 'Account', 'A3234', 'Account', b'1', '32', '../../uploads/notes/notePreview/GST Billing332preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-02 09:14:41', NULL, NULL, NULL, b'01'),
 (32, 'SPCC', 5, '../../uploads/notes/displayPic/SPCC39profile.jpg', 1, 32, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'Bhalodiya College of Commerce', 'India', 'Account', 'A3234', 'Account', b'1', '9', '../../uploads/notes/notePreview/SPCC39preview.pdf', 3, 4, 1, 'Publishing and graphic design', NULL, '2021-03-02 10:14:41', NULL, NULL, NULL, b'01'),
 (33, 'Airtifitial Intelligence', 2, '../../uploads/notes/displayPic/Airtifitial Intelligence38profile.jpg', 1, 65, 'It is a long established fact that a reader will be distracted by the readable content of a page', 'VVP', 'India', 'computer science', '450990', 'computer science', b'1', '8', '../../uploads/notes/notePreview/Airtifitial Intelligence38preview.pdf', 3, 3, 1, NULL, '2021-03-03 10:50:13', '2021-03-02 10:50:13', NULL, NULL, NULL, b'01'),
 (34, 'C++ Programming1', 2, '../../uploads/notes/displayPic/C++ Programming1378profile.jpg', 1, 23, 'Book for C programming', 'GTU', 'India', 'Computer Engineering', 'CE087', 'Mehul Batt', b'1', '78', '../../uploads/notes/notePreview/C++ Programming1378preview.pdf', 3, 3, 1, NULL, '2021-03-04 09:00:57', '2021-03-03 09:00:57', NULL, NULL, NULL, b'01'),
 (35, 'C Programming1', 1, '../../uploads/notes/displayPic/C Programming1379profile.jpg', 1, 87, 'Here is the complete code for the PHP Form Validation', 'VVP', 'India', 'Computer Cource', '60990', 'Computer Cource', b'1', '79', '../../uploads/notes/notePreview/C Programming1379preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-03 09:13:03', NULL, NULL, NULL, b'01'),
 (36, 'Ccomputer Programming', 1, '../../uploads/notes/displayPic/Ccomputer Programming30profile.jpg', 1, 76, 'Here is the complete code for the PHP Form Validation', 'VVP', 'India', 'Computer Cource', '60990', 'Computer Cource', b'0', '0', '../../uploads/notes/notePreview/Ccomputer Programming30preview.pdf', 3, 3, 1, NULL, '2021-03-05 10:12:14', '2021-03-04 09:12:14', NULL, NULL, NULL, b'01'),
-(37, 'GST Billing Methods', 5, '../../uploads/notes/displayPic/GST Billing Methods30profile.jpg', 1, 65, 'In publishing and graphic design, Lorem ipsum is a placeholder text', 'CFA', 'India', 'CA', 'C234', 'CA', b'0', '0', '../../uploads/notes/notePreview/GST Billing Methods30preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-05 04:54:57', NULL, NULL, NULL, b'01'),
+(37, 'GST Billing Methods', 5, '../../uploads/notes/displayPic/GST Billing Methods30profile.', 1, 65, 'Book about GST', 'CFA', 'India', 'CA Mohit', 'C234', 'CA', b'0', '0', '../../uploads/notes/notePreview/GST Billing Methods30preview.pdf', 3, 1, NULL, NULL, NULL, '2021-03-05 04:54:57', NULL, '2021-04-15 14:44:16', NULL, b'01'),
 (38, 'Basics of H/W', 1, '../../uploads/notes/displayPic/Basics of H/W392profile.jpg', 1, 66, 'In publishing and graphic design, Lorem ipsum is a placeholder text', 'CFA', 'Italy', 'computer science', 'A3234', 'computer science', b'1', '92', '../../uploads/notes/notePreview/Basics of H/W392preview.pdf', 3, 4, 1, 'Graphic design, Lorem ipsum is a  text', NULL, '2021-03-21 06:59:52', NULL, NULL, NULL, b'01'),
 (39, 'GST Billing Sys', 5, '../../uploads/notes/displayPic/GST Billing Sys377profile.jpg', 1, 43, 'In publishing and graphic design, Lorem ipsum is a placeholder text', 'Darshan Engineering College', 'China', 'CA', 'A3234', 'CA', b'1', '77', '../../uploads/notes/notePreview/GST Billing Sys377preview.pdf', 3, 3, 2, '', '2021-04-09 05:58:22', '2021-03-21 07:02:21', NULL, NULL, NULL, b'01'),
 (40, 'GST Billing Sys', 5, '../../uploads/notes/displayPic/GST Billing Sys377profile.png', 1, 76, 'In publishing and graphic design, Lorem ipsum is a placeholder text', 'D.H Mehta College of Commerce', 'India', 'CA', 'CA09Bs', 'CA', b'1', '77', '../../uploads/notes/notePreview/GST Billing Sys377preview.pdf', 3, 4, 1, 'In publishing and graphic  ipsum is a text', NULL, '2021-03-21 07:05:00', NULL, NULL, NULL, b'01');
@@ -275,7 +276,10 @@ INSERT INTO `order_note` (`order_id`, `seller_id`, `user_id`, `note_id`, `is_all
 (16, 3, 5, 27, b'01', NULL, b'01', '2021-03-01 10:20:43', b'01', '2', 'DBMS', 1, '2021-03-01 10:20:43', NULL, NULL, NULL, b'01'),
 (17, 3, 7, 27, b'01', NULL, b'01', '2021-03-02 10:20:43', b'01', '2', 'DBMS', 1, '2021-03-02 10:20:43', NULL, NULL, NULL, b'01'),
 (19, 3, 6, 33, b'00', '../../uploads/notes/documents/Airtifitial Intelligence38document.pdf', b'00', '0000-00-00 00:00:00', b'11', '8', 'Airtifitial Intelligence', 2, '2021-03-26 12:13:11', NULL, NULL, NULL, b'01'),
-(20, 3, 6, 34, b'00', '../../uploads/notes/documents/C++ Programming1378document.pdf', b'00', '0000-00-00 00:00:00', b'11', '78', 'C++ Programming1', 2, '2021-03-26 12:23:18', NULL, NULL, NULL, b'01');
+(20, 3, 6, 34, b'00', '../../uploads/notes/documents/C++ Programming1378document.pdf', b'00', '0000-00-00 00:00:00', b'11', '78', 'C++ Programming1', 2, '2021-03-26 12:23:18', NULL, NULL, NULL, b'01'),
+(21, 3, 3, 25, b'00', '../../uploads/notes/documents/Java Programming332document.pdf', b'00', '0000-00-00 00:00:00', b'11', '32', 'Java Programming', 1, '2021-04-15 09:44:51', NULL, NULL, NULL, b'01'),
+(22, 3, 3, 27, b'01', '../../uploads/notes/documents/DBMS32document.pdf', b'00', '0000-00-00 00:00:00', b'11', '2', 'DBMS', 1, '2021-04-15 13:06:10', NULL, '2021-04-15 13:32:39', 3, b'01'),
+(23, 3, 3, 34, b'01', '../../uploads/notes/documents/C++ Programming1378document.pdf', b'00', '0000-00-00 00:00:00', b'11', '78', 'C++ Programming1', 2, '2021-04-15 13:06:47', NULL, '2021-04-15 13:29:59', 3, b'01');
 
 -- --------------------------------------------------------
 
@@ -724,7 +728,7 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `note`
@@ -736,7 +740,7 @@ ALTER TABLE `note`
 -- AUTO_INCREMENT for table `order_note`
 --
 ALTER TABLE `order_note`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `reference_data`

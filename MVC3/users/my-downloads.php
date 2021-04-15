@@ -88,13 +88,13 @@
                                     <td onclick="window.location.href = 'notes-detail.php?note_id=<?php echo $row['note_id'];?>';"><?php echo $row['note_title']; ?></td>
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
-                                    <?php if($row['is_paid'] == 1){ ?>
-                                    <td><?php echo "Paid"?></td>
-                                    <?php }
-                                        if($row['is_paid'] == 0){
-                                    ?>
-                                    <td><?php echo "Free"?></td>
-                                    <?php } ?>
+                                    <td>
+                                    <?php if($row['is_paid']){
+										echo "Paid";
+									}else{
+										echo "Free";
+									} ?>
+									</td>
                                     <td>$<?php echo $row['purchase_price']; ?></td>
                                     <td class="text-center">
                                         <?php 

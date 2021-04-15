@@ -4,7 +4,7 @@
 <?php include "process/connection.php";
    ob_start();
     $user=$_SESSION["user_id"];
-    $query1="SELECT note.title,category.name,user_profile.email2,user_profile.country_code,user_profile.mobile,note.is_paid,note.price,order_note.download_time FROM `order_note` JOIN note ON order_note.note_id =note.note_id JOIN user_profile ON order_note.user_id=user_profile.user_id JOIN category ON order_note.note_category=category.category_id WHERE seller_id = '$user' ORDER BY order_note.download_time DESC";
+    $query1="SELECT order_note.order_id,note.note_id,note.title,category.name,user_profile.email2,user_profile.country_code,user_profile.mobile,note.is_paid,note.price,order_note.created_date FROM order_note JOIN note ON order_note.note_id =note.note_id JOIN user_profile ON order_note.user_id=user_profile.user_id JOIN category ON order_note.note_category=category.category_id WHERE seller_id = '$user' AND is_allowed_to_download=0 ORDER BY order_note.created_date DESC";
     $result1=mysqli_query($conn, $query1);
     
 ?>
@@ -105,7 +105,7 @@
                                     <td class="text-center pr-0">
 
                                         <?php 
-                                         $time=strtotime($row['download_time']);
+                                         $time=strtotime($row['created_date']);
                                           $t=date("Y M d, H:i:s", $time);                                   
                                           echo $t;  ?>
                                     </td>
@@ -113,7 +113,7 @@
                                         <div class="dropdown d-inline-block pull-right align-middle">
                                             <a class="toggle" href="#" data-toggle="dropdown"><img class="d-inline-block align-middle" src="img/icons/dots.png" alt="eye"></a>
                                             <ul class="dropdown-menu dropdown-menu-left pull-right">
-                                                <li class="dropdown-item"><a href="#">Yes- I Received</a></li>
+                                                <li class="dropdown-item"><a href="process/allowToDownload.php?note_id=<?php echo $row['order_id'];  ?>">Yes- I Received</a></li>
                                             </ul>
                                         </div>
                                     </td>

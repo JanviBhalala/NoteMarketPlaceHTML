@@ -6,7 +6,7 @@ include "mail.php";
  
      if ((isset($_POST['save_note']) || isset($_POST['publish_note']))&& isset($_POST['note-title']) && isset($_POST['note-category']) && isset($_FILES['upload_notes']) && isset($_POST['comments']) && isset($_POST['sell_type'])  && isset($_POST['price'])) 
      {
-         
+         $update=0;
          $title = $_POST['note-title'];
          $category = $_POST['note-category'];
          $upload_notes = $_FILES['upload_notes'];
@@ -32,41 +32,50 @@ include "mail.php";
          move_uploaded_file($filePath,$destination);
          $string1 = "";
          $string2 = "";
+		 $update_q="UPDATE note SET";
          if(!empty($_POST['note_type'])){
              $string1 .= "note_type_id, ";
              $note_type= $_POST['note_type'];
              $string2 .= "'$note_type', ";
+			 $update_q .=" note_type_id='$note_type',";
          }
          if(!empty($_POST['number_of_pages'])){
              $string1 .= "number_of_pages, "; 
              $pages_count= $_POST['number_of_pages'];
              $string2 .= "'$pages_count', ";
+			 $update_q .=" number_of_pages='$pages_count',";
          }
          if(!empty($_POST['country'])){
              $string1 .= "country, ";
              $country= $_POST['country'];
              $string2 .= "'$country', ";
+			 $update_q .=" country='$country',";
          }
          if(!empty($_POST['institution'])){
              $string1 .= "university, "; 
              $institution= $_POST["institution"];
              $string2 .= "'$institution', ";
+			 $update_q .=" university='$institution',";
+
          }
          if(!empty($_POST['course_name'])){
              $string1 .= "cource, ";
              $gender= $_POST["course_name"];
              $string2 .= "'$gender', ";
+			 $update_q .=" cource='$gender',";
          }
          if(!empty($_POST['professor_name'])){
              $string1 .= "professor, "; 
-             $course_name= $_POST["course_name"];
-             $string2 .= "'$course_name', ";
+             $professor_name= $_POST["professor_name"];
+             $string2 .= "'$professor_name', ";
+			 $update_q .=" professor='$professor_name',";
          }
          
          if(!empty($_POST['course_code'])){
              $string1 .= "cource_code, "; 
              $course_code= $_POST["course_code"];
              $string2 .= "'$course_code', ";
+			 $update_q .=" cource_code='$course_code',";
          }
         
          if(isset($_FILES['display_pic'])){
@@ -83,6 +92,7 @@ include "mail.php";
              
              $string1 .= "display_img, ";
              $string2 .= "'$new_destination', ";
+			 $update_q .=" display_img='$new_destination',";
              
          }
           if(isset($_FILES['note_preview'])){
@@ -99,20 +109,28 @@ include "mail.php";
              
              $string1 .= "note_preview, ";
              $string2 .= "'$previewDestination', ";
+			 $update_q .=" note_preview='$previewDestination',";
              
          }
          if(isset($_POST['save_note'])){
             $status = 1; 
+			$update=$_POST['save_note'];
          }
          else if(isset($_POST['publish_note'])){
             $status = 2; 
          }
-        
+		 $today = date("Y-m-d H:i:s"); 
+        $update_q .=" title='$title', category_id='$category', description='$comments', is_paid=$sell_type,  price='$price', user_id='$user_id',status_id='$status', updated_date='$today' Where note_id='$update'  ";
          $string1 .= "title, category_id, 	description, is_paid, price, user_id, status_id,created_date";
-         $today = date("Y-m-d H:i:s"); 
+         
          $string2 .= "'$title', '$category', '$comments', $sell_type, '$price', '$user_id', '$status','$today'";
          $query="INSERT INTO note ( $string1 ) VALUES ($string2)";
-         $result=mysqli_query($conn, $query);
+		 if($update!=0){
+			 $result=mysqli_query($conn, $update_q);
+		 }
+		 else{
+         	$result=mysqli_query($conn, $query);
+		 }
          
          if($result ){
              $last_id = mysqli_insert_id($conn);
@@ -129,7 +147,7 @@ include "mail.php";
                $seller_name= $_SESSION["username"];
                 
                 $to_email = $row['email'];
-                $altBody="You are registered. Now you need to verify email.";
+                $altBody="Someone Sent this note for review.";
                 $subject = "$seller_name sent this note for review";
                 $body = "Hello Admins,<br/><br/>We want to inform you that, $seller_name sent his note $title for review. Please look at the note sand take required actions.<br/><br/>Regards,<br/>Notes Marketplace";
                 $name = $seller_name;
@@ -149,5 +167,6 @@ include "mail.php";
                 header("location:../add-notes.php?msg={$msg}");
             } 
          }
+		 echo $update_q;
     }
 ?>

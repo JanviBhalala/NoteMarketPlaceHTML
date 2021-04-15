@@ -1,12 +1,13 @@
 <?php session_start();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php include "process/connection.php";
    ob_start();
     $user=$_SESSION["user_id"];
-    $query1="SELECT title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note  JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE user_id = '$user' AND note.status_id IN(1,2,3) ORDER BY note.created_date DESC";
+    $query1="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note  JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE user_id = '$user' AND note.status_id IN(1,2,3) ORDER BY note.created_date DESC";
    
-    $query2="SELECT title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE ( user_id = '$user' AND note.status_id = '3' ) ORDER BY note.created_date DESC";
+    $query2="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE ( user_id = '$user' AND note.status_id = '3' ) ORDER BY note.created_date DESC";
     $result1=mysqli_query($conn, $query1);
     $result2=mysqli_query($conn, $query2);
     
@@ -172,7 +173,7 @@
                                     <td><?php echo $row['name']; ?></td>
                                     <?php if($row['status_id'] == 1){ ?>
                                     <td>Draft</td>
-                                    <td class="text-center"><a href="add-notes.php"><img src="img/icons/edit.png" class="pr-2"></a><img src="img/icons/delete.png"></td>
+                                    <td class="text-center"><a href="add-notes.php?note_id=<?php echo $row['note_id']; ?>"><img src="img/icons/edit.png"  class="pr-2"></a><img src="img/icons/delete.png"></td>
                                     <?php }
                                         if($row['status_id'] == 3){
                                     ?>

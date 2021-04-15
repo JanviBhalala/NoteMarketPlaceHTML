@@ -8,6 +8,7 @@ if(isset($_POST)){
         $today = date("Y-m-d H:i:s"); 
         $query="UPDATE note SET status_id=3,action_by='$user_id',admin_remark='',published_date='$today' WHERE note_id='$order_id'";
         $result=mysqli_query($conn, $query);
+	
         if($result){
             echo "Book is approved.";
         }
