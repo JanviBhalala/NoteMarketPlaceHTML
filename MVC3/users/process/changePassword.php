@@ -21,7 +21,7 @@ $b=1;
         
          
         
-         if($pass== $row["password"]){ 
+         if(password_verify($pass, $row["password"])){ 
 
             if (strlen($_POST['new-password']) < '8') {
             $msg = "Your Password Must Contain At Least 8 Characters!";
@@ -55,12 +55,13 @@ $b=1;
                  header("location:../change-password.php?msg={$msg}");
              }   
             else{
+				$hash = password_hash($n_pass, PASSWORD_DEFAULT);
                 $today = date("Y-m-d H:i:s"); 
-                $query="UPDATE users SET password='$n_pass',updated_date='$today' WHERE user_id = '$user'";
+                $query="UPDATE users SET password='$hash',updated_date='$today' WHERE user_id = '$user'";
                 $result=mysqli_query($conn, $query);
                 if($result){
                     $msg="Your password has been changed.";
-                    header("location:../change-password.php?msg={$msg}");
+                    header("location:../change-password.php?msg1={$msg}");
                 }
                 else{
                     $msg="Please try again.";

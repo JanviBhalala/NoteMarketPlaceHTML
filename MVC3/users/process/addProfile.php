@@ -17,6 +17,8 @@ include "connection.php";
          $college = $_POST['college'];
          $user_id= $_SESSION["user_id"];
          $update="";
+		 $msg="";
+		 $msg1="";
          
          $q="SELECT COUNT(user_id) FROM user_profile WHERE user_id = '$user_id'";
         $rslt=mysqli_query($conn, $q);
@@ -24,7 +26,6 @@ include "connection.php";
         
          if($r["COUNT(user_id)"]==1){
              $update .="UPDATE user_profile SET ";
-             echo "1";
          }
             
          
@@ -98,18 +99,25 @@ include "connection.php";
              $today = date("Y-m-d H:i:s");
              $string1 .= "email2, address1, address2, city, state, zip_code, country, university, college, user_id,created_date";
              $string2 .= "'$email', '$add1', '$add2', '$city', '$state', '$zip', '$country', '$univercity', '$college', '$user_id', '$today'";
-             $string2 .= "'$email', '$add1', '$add2', '$city', '$state', '$zip', '$country', '$univercity', '$college', '$user_id', '$today'";
              
              $query="INSERT INTO user_profile ( $string1 ) VALUES ($string2)";
              $result=mysqli_query($conn, $query);
              $q="UPDATE users SET fname='$fname',lname='$lname',updated_date='$today' WHERE user_id='$user_id'";
-             $r=mysqli_query($conn, $q);
+             $r=mysqli_query($conn, $query);
          }
          if($result && $r){
            $msg= "Profile is updated";
               header("location:../user-profile.php?msg={$msg}");
-             echo $msg;
+             
          }
+		 else{
+			$msg1= "Please try again";
+              header("location:../user-profile.php?msg={$msg1}"); 
+		 }
        
     }
+else{
+	$msg1= "Please try again";
+              header("location:../user-profile.php?msg={$msg1}"); 
+}
 ?>

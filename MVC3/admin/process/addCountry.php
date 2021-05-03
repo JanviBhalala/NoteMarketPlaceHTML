@@ -32,17 +32,17 @@
             $r1=mysqli_query($conn, $q1);
             if($r1){
 				$msg="Countryis added.";
-				header("location:../admin-add-country.php?msg=$msg");
+				header("location:../manage-country.php");
             }
             else{
-				$msg="Please try again.";
-				header("location:../admin-add-country.php?msg=$msg");
+				$msg1="Please try again.";
+				header("location:../manage-country.php");
             }
 		
         
     }
     else{
-        $msg="Please Fill All fields";
-		header("location:../admin-add-country.php?msg=$msg");
+        $msg1="Please Fill All fields";
+		header("location:../admin-add-country.php?msg1=$msg1");
     }
 ?>

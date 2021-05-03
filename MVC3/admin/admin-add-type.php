@@ -20,6 +20,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Add Administrator</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -47,9 +51,9 @@
 				<div class="table-heading animated fadeInDown pt-4">
 					<h2>Add Type</h2>
 					<?php
-                        if( !empty( $_REQUEST['msg'] ) )
+                        if( !empty( $_REQUEST['msg1'] ) )
                             {
-                                echo sprintf( '<br/><p>%s</p>', $_REQUEST['msg'] );
+                                echo sprintf( '<br/><p class="error">%s</p>', $_REQUEST['msg1'] );
                             }
                         ?>
 				</div>
@@ -88,6 +92,10 @@
 
 	<!-- Bootstrap JS -->
 	<script src="js/bootstrap/bootstrap.min.js"></script>
+	
+		<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

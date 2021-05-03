@@ -18,6 +18,80 @@ $(".toggle-password").click(function () {
 	}
 });
 /*=============================================================
+|   |   |   |   |   |   validations
+==============================================================*/
+
+    $("form[name='login_form']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+            email: {
+                required: true,
+                // Specify that email should be validated
+                // by the built-in "email" rule
+                email: true
+            },
+            pass: {
+                required: true,
+            }
+        },
+        // Specify validation error messages
+        messages: {
+            pass: {
+                required: "Please provide a password"
+            },
+            email: "Please enter a valid email address"
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function (form) {
+            form.submit();
+
+        }
+
+    });
+$("form[name='my_profile']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+			fname:true,
+			lname:true,
+            email: {
+                required: true,
+                // Specify that email should be validated
+                // by the built-in "email" rule
+                email: true
+            },
+            email2: {
+                required: true,
+				 email: true
+            },
+			phone_number:true,
+			profile_pic:true
+        },
+        // Specify validation error messages
+        messages: {
+			fname:"Please enter first name",
+			lname:"Please enter last name",
+            email2: "Please enter a valid email address",
+            email: "Please enter a valid email address",
+			phone_number:"Please enter a mobile number",
+			profile_pic:"Please upload a profile picture."
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function (form) {
+            form.submit();
+
+        }
+
+    });
+
+/*=============================================================
 |   |   |   |   |   |   Mobile Menu
 ==============================================================*/
 $(function () {
@@ -230,7 +304,7 @@ $("#Admin-dashboard").ready(function () {
 
 		i[name] = value;
 		var json1 = JSON.stringify(i);
-		//console.log(json1);
+		console.log(json1);
 		load_data(json1);
 
 	});

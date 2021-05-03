@@ -5,11 +5,42 @@
 <?php include "process/connection.php";
    ob_start();
     $user=$_SESSION["user_id"];
-    $query1="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note  JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE user_id = '$user' AND note.status_id IN(1,2,3) ORDER BY note.created_date DESC";
+	$rejected="SELECT COUNT(note_id) AS rejected_note FROM `note` WHERE status_id=4 AND user_id='$user' AND is_active=1";
+	$money="SELECT SUM(purchase_price) AS money FROM `order_note` WHERE is_allowed_to_download=1 AND seller_id='$user' AND is_active=1";
+	$downloads="SELECT COUNT(order_id) AS my_downloads FROM `order_note` WHERE user_id='$user' AND is_attachment_downloaded=1 AND is_active=1";
+	$query="SELECT SUM(is_allowed_to_download) AS sold_notes, COUNT(user_id) AS buyer FROM `order_note` WHERE seller_id='$user' GROUP BY seller_id";
+    $query1="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note  JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE user_id = '$user' AND note.status_id IN(1,2,3) AND note.is_active=1 ORDER BY note.created_date DESC";
    
-    $query2="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE ( user_id = '$user' AND note.status_id = '3' ) ORDER BY note.created_date DESC";
+    $query2="SELECT note_id,title,note.created_date,status.status,category.name,price,note.is_paid,note.status_id FROM note JOIN category ON note.category_id=category.category_id JOIN status ON note.status_id = status.status_id WHERE ( user_id = '$user' AND note.status_id = '3' ) AND note.is_active=1 ORDER BY note.created_date DESC";
+	
+	$rejected=mysqli_query($conn, $rejected);
+	$money=mysqli_query($conn, $money);
+	$download=mysqli_query($conn, $downloads);
+	$result=mysqli_query($conn, $query);
     $result1=mysqli_query($conn, $query1);
     $result2=mysqli_query($conn, $query2);
+	$soldNote=0;
+	$buyerRequest=0;
+	$money_earned=0;
+	$my_Downloads=0;
+	$rejectedNotes=0;
+	if($result && mysqli_num_rows($result) != 0){
+		$data=mysqli_fetch_assoc($result);
+		$buyerRequest=$data['buyer'];
+		$soldNote=$data['sold_notes'];
+	}
+	if($download && mysqli_num_rows($download) != 0){
+		$data=mysqli_fetch_assoc($download);
+		$my_Downloads=$data['my_downloads'];
+	}
+	if($money && mysqli_num_rows($money) != 0){
+		$data=mysqli_fetch_assoc($money);
+		$money_earned=$data['money'];
+	}
+	if($rejected && mysqli_num_rows($rejected) != 0){
+		$data=mysqli_fetch_assoc($rejected);
+		$rejectedNotes=$data['rejected_note'];
+	}
     
 ?>
 
@@ -17,6 +48,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -80,12 +115,12 @@
                                     <div class="row">
                                         <div class="col-md-6  col-xs-6 col-sm-6 cell " onclick="window.location.href = 'my-sold-notes.php';">
                                             <div>
-                                                <p class="card-text text-center">100</p>
+                                                <p class="card-text text-center"><?php echo $soldNote; ?></p>
                                                 <p class="value-content text-center">Number of Notes Sold</p>
                                             </div>
                                         </div>
                                         <div class="col-md-6  col-xs-6 col-sm-6 cell ">
-                                            <p class="card-text text-center">$10,00,000</p>
+                                            <p class="card-text text-center">$<?php echo $money_earned; ?></p>
                                             <p class="value-content text-center">Money Earned</p>
                                         </div>
 
@@ -98,7 +133,7 @@
                                 <div class="col-md-4 ">
                                     <div class="card animated flipInY " onclick="window.location.href = 'my-downloads.php';">
                                         <div class="card-body">
-                                            <p class="card-text text-center">32</p>
+                                            <p class="card-text text-center"><?php echo $my_Downloads; ?></p>
                                             <p class="value-content text-center">My Downloads</p>
                                         </div>
                                     </div>
@@ -106,7 +141,7 @@
                                 <div class="col-md-4 ">
                                     <div class="card" onclick="window.location.href = 'my-rejected-notes.php';">
                                         <div class="card-body animated flipInY">
-                                            <p class="card-text text-center">12</p>
+                                            <p class="card-text text-center"><?php echo $rejectedNotes; ?></p>
                                             <p class="value-content text-center">My Rejected Notes</p>
                                         </div>
                                     </div>
@@ -114,7 +149,7 @@
                                 <div class="col-md-4   ">
                                     <div class="card animated flipInY" onclick="window.location.href = 'buyer-request.php';">
                                         <div class="card-body">
-                                            <p class="card-text text-center">102</p>
+                                            <p class="card-text text-center"><?php echo $buyerRequest; ?></p>
                                             <p class="value-content text-center">Buyes Requests</p>
                                         </div>
                                     </div>
@@ -173,18 +208,18 @@
                                     <td><?php echo $row['name']; ?></td>
                                     <?php if($row['status_id'] == 1){ ?>
                                     <td>Draft</td>
-                                    <td class="text-center"><a href="add-notes.php?note_id=<?php echo $row['note_id']; ?>"><img src="img/icons/edit.png"  class="pr-2"></a><img src="img/icons/delete.png"></td>
+                                    <td class="text-center"><a href="add-notes.php?note_id=<?php echo $row['note_id']; ?>"><img src="img/icons/edit.png"  class="pr-2"></a><a href="process/deleteNote.php?id=<?php echo $row['note_id']; ?>"><img src="img/icons/delete.png"></a></td>
                                     <?php }
                                         if($row['status_id'] == 3){
                                     ?>
                                     <td>Submitted</td>
-                                    <td class="text-center"><a href="notes-detail.php"><img src="img/pre-login/eye.png"></a></td>
+                                    <td class="text-center"><a href="notes-detail.php?note_id=<?php echo $row['note_id']; ?>"><img src="img/pre-login/eye.png"></a></td>
                                     <?php } ?>
                                     <?php 
                                         if($row['status_id'] == 2){
                                     ?>
                                     <td>In Prograss</td>
-                                    <td class="text-center"><a href="notes-detail.php"><img src="img/pre-login/eye.png"></a></td>
+                                    <td class="text-center"><a href="notes-detail.php?note_id=<?php echo $row['note_id']; ?>"><img src="img/pre-login/eye.png"></a></td>
                                     <?php } ?>
 
 
@@ -258,7 +293,7 @@
                                     <td><?php echo "Free"?></td>
                                     <?php } ?>
                                     <td>$<?php echo $row1['price']; ?></td>
-                                    <td class="text-center"><a href="notes-detail.php"><img src="img/pre-login/eye.png"></a></td>
+                                    <td class="text-center"><a href="notes-detail.php?note_id=<?php echo $row1['note_id']; ?>"><img src="img/pre-login/eye.png"></a></td>
 
                                 </tr>
                                 <?php }} ?>

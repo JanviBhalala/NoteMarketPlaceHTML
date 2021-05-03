@@ -10,6 +10,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Notes Under Review</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -56,7 +60,7 @@
 									<select name="gender" id="seller" class="form-control searchMeInTable">
 										<option value="">Select Seller</option>
 										<?php 
-                                            $query="SELECT DISTINCT fname FROM users JOIN note ON users.user_id=note.user_id WHERE note.status_id=4";
+                                            $query="SELECT DISTINCT fname FROM users JOIN note ON users.user_id=note.user_id WHERE note.status_id IN (2,5) AND users.is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
 										<option value="<?php echo $row['fname'];?>"><?php echo $row['fname'];?></option><?php
@@ -170,12 +174,16 @@
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 
 	<script src="js/tables/jquery-dataTables.min.js"></script>
+	
 	<!-- Bootstraptables JS -->
 	<script src="js/tables/dataTables-bootstrap.min.js"></script>
 
-
 	<!-- Wow JS -->
 	<script src="js/Wow/wow.min.js"></script>
+	
+		<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

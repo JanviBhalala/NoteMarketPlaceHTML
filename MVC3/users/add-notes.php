@@ -5,13 +5,15 @@
     include "process/connection.php";
     ob_start();
 	$c=0;
+	$note_id=0;
 	if(!empty( $_REQUEST['note_id'] )){
 		$note_id=$_GET['note_id'];
-		$query="SELECT note_id, title, note.category_id,category.name, display_img, note_type_id,type.type, number_of_pages, note.description, university, country, cource, cource_code, professor, is_paid, price, note_preview FROM note JOIN category ON note.category_id=category.category_id JOIN type ON note.note_type_id=type.type_id WHERE note_id='$note_id'";
+		$query="SELECT note.note_id, title, note.category_id,category.name, display_img, note_type_id,type.type, number_of_pages, note.description, university, country, cource, cource_code, professor, is_paid, price, note_preview,documents.file_path FROM note JOIN category ON note.category_id=category.category_id JOIN type ON note.note_type_id=type.type_id JOIN documents ON note.note_id=documents.note_id WHERE note.note_id='$note_id'";
     	$result=mysqli_query($conn, $query);
 		if($result && mysqli_num_rows($result)==1){
 			$c=1;
 			$r= mysqli_fetch_assoc($result);
+			$doc= substr($r['file_path'], 3);
 		}
 	}
 ?>
@@ -20,6 +22,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Add Notes</title>
+	
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -122,7 +128,7 @@
 							<div class="form-group">
 								<label class="required">Upload Notes</label>
 
-								<input type="file" name="upload_notes" class="form-control input-img1" accept=".pdf" title=" " required="required" style="height:100px;" />
+								<input type="file" name="upload_notes" class="form-control input-img1" accept=".pdf" title=" " required="required" <?php if($c==1){ ?> value="<?php echo $doc; ?>" <?php } ?> style="height:100px;" />
 								<label class="file-label">Upload your notes</label>
 
 							</div>
@@ -131,13 +137,15 @@
 								<input type="text" name="number_of_pages" <?php if($c==1){ ?> value="<?php echo $r['number_of_pages']; ?>" <?php } ?> class="form-control" placeholder="Enter number of note pages">
 							</div>
 
-
+							<input type="hidden" name="note_id" <?php if($c==1){ ?> value="<?php echo $note_id; ?>" <?php } else{ ?> value="0" <?php } ?> class="form-control" placeholder="Enter number of note pages">
 
 						</div>
 						<div class="col-md-12  wow slideInUp " data-wow-duration="1.2s">
 							<div class="form-group">
 								<label class="required">Description</label>
-								<textarea name="comments" id="category-description" required="required" <?php if($c==1){ ?> defaultValue="<?php echo $r['description']; ?>" <?php } ?> class="form-control" rows="8" placeholder="Enter your description"></textarea>
+								<textarea name="comments" id="category-description" required="required" class="form-control" rows="8" placeholder="Enter your description">
+									<?php if($c==1){  echo $r['description']; } ?>
+								</textarea>
 							</div>
 						</div>
 					</div>
@@ -218,14 +226,14 @@
 						<div class="col-sm-12 col-md-6 col-xs-12  wow slideInLeft " data-wow-duration="1.2s">
 							<div class="form-group radio-btn">
 								<label class="required">Sell For</label><br>
-								<input type="radio" id="sell-free" class="radio" name="sell_type" value="0">
+								<input type="radio" id="sell-free" class="radio" <?php if($c==1 && $r['is_paid']==0){ ?>checked= "checked "<?php } ?> name="sell_type" value="0">
 								<label for="free">Free</label>
-								<input type="radio" id="paied" class="radio" name="sell_type" value="1">
+								<input type="radio" id="paied" <?php if($c==1 && $r['is_paid']==1){ ?> checked="checked" <?php } ?> class="radio" name="sell_type" value="1">
 								<label for="sell-paied">Paied</label>
 							</div>
 							<div class="form-group">
 								<label class="required">Sell Price</label>
-								<input type="text" name="price" <?php if($c==1){ ?> value="<?php echo $r['price']; ?>" <?php } ?> class="form-control" required="required " placeholder="Enter your price">
+								<input type="text" name="price" <?php if($c==1){ ?> value="<?php echo $r['price']; ?>" <?php } ?> class="form-control" id="price" required="required " placeholder="Enter your price">
 							</div>
 						</div>
 
@@ -238,7 +246,7 @@
 						</div>
 
 						<div class="col-md-12  wow slideInUp " data-wow-duration="1.2s">
-							<button class="small-btn" <?php if($c==1){ ?>value="<?php echo $note_id;  ?>" <?php } ?> name="save_note">Save</button><button name="publish_note" class="small-btn ml-3">Publish</button>
+							<button class="small-btn" name="save_note">Save</button><button name="publish_note" class="small-btn ml-3">Publish</button>
 						</div>
 
 					</div>

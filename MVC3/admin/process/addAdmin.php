@@ -32,21 +32,22 @@
 				//add admin
                 $today = date("Y-m-d H:i:s");
                 $q1="INSERT INTO users(role_id, fname, lname, email, phone_code, phone,is_email_verfied, created_by, created_date) VALUES (2,'$fname','$lname','$email','$code','$phone',1,'$user_id','$today')";
+				
             }
             $r1=mysqli_query($conn, $q1);
             if($r1){
 				$msg="Admin is added.";
-				header("location:../admin-add-administrator.php?msg=$msg");
+				header("location:../manage-administrator.php");
             }
             else{
-				$msg="Please try again.";
-				header("location:../admin-add-administrator.php?msg=$msg");
+				$msg1="Please try again.";
+				header("location:../manage-administrator.php");
             }
 		
         
     }
     else{
         $msg="Please Fill All fields";
-		header("location:../admin-add-administrator.php?msg=$msg");
+		header("location:../admin-add-administrator.php?msg1=$msg");
     }
 ?>

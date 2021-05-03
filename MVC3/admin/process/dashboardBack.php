@@ -1,49 +1,58 @@
 <?php 
-    include "connection.php";
-    ob_start();
-if( !empty($_POST)){
-        $myData=$_POST;
-    $data=$myData['query'];
-    
-       $str_arr = explode (":", $data);
-    //print_r($str_arr);
-    
-    $new_str = str_replace('"', '', $str_arr[0]);
-    $name = str_replace('{', '', $new_str);
-   // echo $name ;
+include "connection.php";
+ob_start();
 
-    $new_str = str_replace('"', '', $str_arr[1]);
-    $value = str_replace('}', '', $new_str);
-    $value1 ='%';
-            $value1 .=$value;
-            $value1 .='%';
-   // echo $value ;
+$select1 = "SELECT note.note_id,note.title,note.published_date,note.user_id,note.price,note.is_paid,category.name,documents.file_path,users.fname,users.lname, MONTH(note.published_date) AS month FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN documents ON note.note_id=documents.note_id WHERE ";
+$where="note.status_id=3 AND note.is_active=1 ";
+	
+$order = " ORDER BY note.published_date DESC";
+if( !empty($_POST)){
+	
+	
+	$myData=$_POST;
+	$data=$myData['query'];
+
+	$str_arr = explode (":", $data);
+	//print_r($str_arr);
+
+	$new_str = str_replace('"', '', $str_arr[0]);
+	$name = str_replace('{', '', $new_str);
+	// echo $name ;
+
+	$new_str = str_replace('"', '', $str_arr[1]);
+	$value = str_replace('}', '', $new_str);
+	$value1 ='%';
+	$value1 .=$value;
+	$value1 .='%';
+	
+	
+	
 	
     if($value !=''){
         if($name !='searchBytxt'){
             
-            $query="SELECT note.note_id,note.title,note.published_date,note.user_id,note.price,note.is_paid,category.name,documents.file_path,users.fname,users.lname, MONTH(note.published_date) AS month FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN documents ON note.note_id=documents.note_id WHERE note.status_id=3 AND ".$name."='". $value ."' ORDER BY note.published_date DESC";
-            
+             $where="note.status_id=3 AND note.is_active=1 " . $name."='". $value ."' ";
             
            
         }
         else{
-            $query="SELECT note.note_id,note.title,note.published_date,note.user_id,note.price,note.is_paid,category.name,documents.file_path,users.fname,users.lname, MONTH(note.published_date) AS month FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN documents ON note.note_id=documents.note_id WHERE note.status_id=3 AND (title LIKE '".$value1."' OR name LIKE '".$value1."' OR fname LIKE '".$value1."' OR lname LIKE '".$value1."'  OR note.price LIKE '".$value1."' OR note.published_date LIKE '".$value1."') ORDER BY note.published_date DESC";
+			$where="note.status_id=3 AND note.is_active=1 AND (title LIKE '". $value1. "'  OR name LIKE '" .$value1."'OR fname LIKE '".$value1."' OR lname LIKE '".$value1."'  OR note.price LIKE '".$value1."' OR note.published_date LIKE '".$value1."') ";
             
            
         }
         
     }
     else{
-     $query="SELECT note.note_id,note.title,note.published_date,note.user_id,note.price,note.is_paid,category.name,documents.file_path,users.fname,users.lname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN documents ON note.note_id=documents.note_id WHERE note.status_id=3 ORDER BY note.published_date DESC";
+     $where="note.status_id=3 AND note.is_active=1 ";
     
     }
     
 }
 else{
-     $query="SELECT note.note_id,note.title,note.published_date,note.user_id,note.price,note.is_paid,category.name,documents.file_path,users.fname,users.lname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN documents ON note.note_id=documents.note_id WHERE note.status_id=3 ORDER BY note.published_date DESC";
+      $where="note.status_id=3 AND note.is_active=1 ";
     
 }
+$query=$select1 .  $where . $order;
 //pagination
 $d="";
 $current_page=1;

@@ -5,16 +5,16 @@
     include "process/connection.php";
     ob_start();
     
-    /*$query="SELECT note_id,note.title,note.display_img,note.number_of_pages,note.university,note.published_date FROM `note` WHERE note.status_id=3 ORDER BY note.published_date DESC";
-    $result1=mysqli_query($conn, $query);
-    $row_count=mysqli_num_rows($result1);*/
-    
 ?>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Search</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -80,7 +80,7 @@
                                     <select name="note_type_id " id="" class="form-control searchMeInTable">
                                         <option value="">Select type</option>
                                         <?php 
-                                            $query="SELECT * FROM type";
+                                            $query="SELECT * FROM type WHERE is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
                                         <option value="<?php echo $row['type_id'];?>"><?php echo $row['type'];?></option><?php
@@ -96,7 +96,7 @@
                                     <select name="category_id" id="" class="form-control searchMeInTable">
                                         <option value="">Select category</option>
                                         <?php 
-                                            $query="SELECT * FROM category";
+                                            $query="SELECT * FROM category  WHERE is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
                                         <option value="<?php echo $row['category_id'];?>"><?php echo $row['name'];?></option><?php
@@ -112,7 +112,7 @@
                                     <select name="university" id="" class="form-control searchMeInTable">
                                         <option value="">Select university</option>
                                         <?php 
-                                            $query="SELECT DISTINCT university FROM note WHERE 1";
+                                            $query="SELECT DISTINCT university FROM note  WHERE is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
                                         <option value="<?php echo $row['university'];?>"><?php echo $row['university'];?></option><?php
@@ -128,7 +128,7 @@
                                     <select name="cource" id="" class="form-control searchMeInTable">
                                         <option value="">Select course</option>
                                         <?php 
-                                            $query="SELECT DISTINCT cource FROM note WHERE 1";
+                                            $query="SELECT DISTINCT cource FROM note";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
                                         <option value="<?php echo $row['cource'];?>"><?php echo $row['cource'];?></option><?php
@@ -144,7 +144,7 @@
                                     <select name="country" id="" class="form-control searchMeInTable">
                                         <option value="">Select country</option>
                                         <?php 
-                                            $query="SELECT country_id,name FROM country";
+                                            $query="SELECT country_id,name FROM country  WHERE is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
                                         <option value="<?php echo $row['name'];?>"><?php echo $row['name'];?></option><?php
@@ -231,7 +231,6 @@
     <!-- Custome JS -->
     <script src="js/script.js"></script>
 
-    <script src="js/ajax.js"></script>
 
 </body>
 

@@ -10,6 +10,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Downloaded Notes</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -56,7 +60,7 @@
 									<select name="note_title" id="user-gender" class="form-search searchMeInTable">
 										<option value="">Select note</option>
 										<?php 
-                                            $query="SELECT DISTINCT note_title FROM order_note WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1";
+                                            $query="SELECT DISTINCT note_title FROM order_note WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1 AND order_note.is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
 										<option value="<?php echo $row['note_title'];?>"><?php echo $row['note_title'];?></option><?php
@@ -70,7 +74,7 @@
 									<select name="u.fname" id="user-gender" class="form-search searchMeInTable">
 										<option value="">Select Seller</option>
 										<?php 
-                                            $query="SELECT DISTINCT users.fname FROM order_note JOIN users ON order_note.seller_id=users.user_id WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1";
+                                            $query="SELECT DISTINCT users.fname FROM order_note JOIN users ON order_note.seller_id=users.user_id WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1 AND order_note.is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
 										<option value="<?php echo $row['fname'];?>"><?php echo $row['fname'];?></option><?php
@@ -84,7 +88,7 @@
 									<select name="users.fname" id="user-gender" class="form-search searchMeInTable">
 										<option value="">Select Buyer</option>
 										<?php 
-                                            $query="SELECT DISTINCT users.fname FROM order_note JOIN users ON order_note.user_id=users.user_id WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1";
+                                            $query="SELECT DISTINCT users.fname FROM order_note JOIN users ON order_note.user_id=users.user_id WHERE is_allowed_to_download=1 AND is_attachment_downloaded=1 AND order_note.is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
 										<option value="<?php echo $row['fname'];?>"><?php echo $row['fname'];?></option><?php
@@ -144,6 +148,9 @@
 
 	<!-- Wow JS -->
 	<script src="js/Wow/wow.min.js"></script>
+		<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

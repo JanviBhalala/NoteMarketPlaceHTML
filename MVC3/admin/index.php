@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include "process/loginBack.php"; ?>
+<?php include "../users/process/loginBack.php"; ?>
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Login</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -21,10 +25,7 @@
 </head>
 
 <body>
-	<?php if( isset($_GET['msg']) ) {
-    $msg=$_GET['msg'];
-    echo "<script> alert(' $msg')</script>";
-}?>
+	
 	<div id="login_page" class="custome-form">
 		<div class="form-page animated fadeInUp">
 			<div class="wrapper-form">
@@ -94,15 +95,7 @@
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>
-	<!-- <script>$(".toggle-password").click(function () {
-
-      var selectInput = $(this).closest(".form-group").find("input");
-    if ($(selectInput).attr("type") == "password") {
-        $(selectInput).attr("type", "text");
-    } else {
-        $(selectInput).attr("type", "password");
-    }
-});</script>-->
+	
 
 </body>
 

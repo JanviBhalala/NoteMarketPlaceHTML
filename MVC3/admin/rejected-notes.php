@@ -9,7 +9,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 	<title>Rejected Notes</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -55,10 +60,13 @@
 								<div class="styled-select1 form-select">
 									<select name="gender" id="seller" class="form-control searchMeInTable">
 										<?php 
-                                            $query="SELECT DISTINCT fname FROM users JOIN note ON users.user_id=note.user_id WHERE note.status_id=4";
+                                            $query="SELECT DISTINCT fname FROM users JOIN note ON users.user_id=note.user_id WHERE note.status_id=4 AND note.is_active=1";
                                             $result=mysqli_query($conn, $query);
                                             while($row=mysqli_fetch_assoc($result)){?>
-										<option value="<?php echo $row['fname'];?>"><?php echo $row['fname'];?></option><?php
+                                            
+										<option value="<?php echo $row['fname'];?>"><?php echo $row['fname'];?></option>
+                                        
+                                        <?php
                                             }
                                         ?>
 									</select>
@@ -144,6 +152,10 @@
 
 		<!-- Wow JS -->
 		<script src="js/Wow/wow.min.js"></script>
+		
+			<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 		<!-- Custome JS -->
 		<script src="js/script.js"></script>

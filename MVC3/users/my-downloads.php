@@ -6,7 +6,7 @@
     ob_start();
     $user=$_SESSION["user_id"];
     
-    $query="SELECT order_id,note_id,users.email,category.name,note_title,is_paid,purchase_price,is_attachment_downloaded,download_time FROM order_note JOIN users ON order_note.user_id = users.user_id JOIN category ON order_note.note_category = category.category_id WHERE order_note.user_id = '$user' ORDER BY download_time DESC";
+    $query="SELECT order_id,note_id,users.email,category.name,note_title,is_paid,purchase_price,is_allowed_to_download,is_attachment_downloaded,download_time FROM order_note JOIN users ON order_note.user_id = users.user_id JOIN category ON order_note.note_category = category.category_id WHERE order_note.user_id = '$user' AND order_note.is_active=1 ORDER BY order_note.created_date DESC";
     $result=mysqli_query($conn, $query);
 ?>
 
@@ -14,6 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Downloads</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -106,7 +110,7 @@
                                         <div class="dropdown d-inline-block pull-right align-middle">
                                             <a class="toggle" href="#" data-toggle="dropdown"><img src="img/icons/dots.png" alt="dots"></a>
                                             <ul class="dropdown-menu dropdown-menu-left pull-right">
-                                                <li class="dropdown-item"><a href="process/download.php?note_id=<?php echo $row['note_id']; ?>">Download Notes</a></li>
+                                                <li class="dropdown-item"><a <?php if($row['is_allowed_to_download']){ ?> href="process/download.php?note_id=<?php echo $row['note_id']; ?>"<?php } else{ ?> href="" <?php } ?>>Download Notes</a></li>
                                                 <li class="dropdown-item"><a href="#" id="<?php echo $row['order_id']; ?>" class="review-btn-add">Add Review/Feedback</a></li>
                                                 <li class="dropdown-item"><a href="#" id="<?php echo $row['order_id']; ?>" class="remark-btn-add">Report as Inappropriate</a></li>
                                             </ul>

@@ -4,7 +4,7 @@
 <?php include "process/connection.php";
    ob_start();
     $user=$_SESSION["user_id"];
-    $query1="SELECT order_note.order_id,note.note_id,note.title,category.name,user_profile.email2,user_profile.country_code,user_profile.mobile,note.is_paid,note.price,order_note.created_date FROM order_note JOIN note ON order_note.note_id =note.note_id JOIN user_profile ON order_note.user_id=user_profile.user_id JOIN category ON order_note.note_category=category.category_id WHERE seller_id = '$user' AND is_allowed_to_download=0 ORDER BY order_note.created_date DESC";
+    $query1="SELECT order_note.order_id,order_note.note_id,note.note_id,note.title,category.name,user_profile.email2,user_profile.country_code,user_profile.mobile,note.is_paid,note.price,order_note.created_date FROM order_note JOIN note ON order_note.note_id =note.note_id JOIN user_profile ON order_note.user_id=user_profile.user_id JOIN category ON order_note.note_category=category.category_id WHERE seller_id = '$user' AND is_allowed_to_download=0 ORDER BY order_note.created_date DESC";
     $result1=mysqli_query($conn, $query1);
     
 ?>
@@ -13,6 +13,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Buyer Request</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -109,7 +112,7 @@
                                           $t=date("Y M d, H:i:s", $time);                                   
                                           echo $t;  ?>
                                     </td>
-                                    <td class="d-block"><img class="d-inline-block align-middle mr-0" src="img/pre-login/eye.png" alt="eye">
+                                    <td class="d-block"><a href="notes-detail.php?note_id=<?php echo $row['note_id'];  ?> "><img class="d-inline-block align-middle mr-0" src="img/pre-login/eye.png" alt="eye"></a>
                                         <div class="dropdown d-inline-block pull-right align-middle">
                                             <a class="toggle" href="#" data-toggle="dropdown"><img class="d-inline-block align-middle" src="img/icons/dots.png" alt="eye"></a>
                                             <ul class="dropdown-menu dropdown-menu-left pull-right">

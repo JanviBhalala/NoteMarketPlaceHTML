@@ -105,7 +105,21 @@ $(function () {
 $(function () {
     new WOW().init();
 });
-
+/*=============================================================
+|   |   |   |   |   |   Disable price
+==============================================================*/
+$(document).ready(function () {
+			$('#add-notes-form .radio').change(function(){
+				var v=$(this).val();
+				if(v==0){
+					$('#add-notes-form #price').attr("readonly","readonly");
+					$('#add-notes-form #price').val('0');
+				}
+				else{
+					$('#add-notes-form #price').removeAttr("readonly");
+				}
+			});
+		});
 
 /*=============================================================
 |   |   |   |   |   |   Validation

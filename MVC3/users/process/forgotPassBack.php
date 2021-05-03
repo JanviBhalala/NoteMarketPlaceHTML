@@ -23,8 +23,9 @@ include "mail.php";
            $subject = "New Temporary Password has been created for you";
            $body = "Hello, <br/> <br/>We have generated a new password for you<br/>Password: $random<br/><br/>Regards,<br/>Notes Marketplace";
            $name = "Forgot Password";
-             
-            $q="UPDATE users SET password = '$random' WHERE email = '$mail'";
+             $hash = password_hash($random,
+			PASSWORD_DEFAULT);
+            $q="UPDATE users SET password = '$hash' WHERE email = '$mail'";
             $r=mysqli_query($conn, $q);
             if($r){
                 if(sendMail($to_email,$name,$subject,$body,$altBody,$i)){
@@ -39,11 +40,12 @@ include "mail.php";
          }
          else{
               $msg="Email does not exist";
-             header("location:../forgot-password.php?msg={$msg}");
+             header("location:../forgot-password.php?msg1={$msg}");
          }
        
     }
     else{
-      header("location:../forgot-password.php");
+		$msg="Please try again.";
+        header("location:../forgot-password.php?msg1={$msg}");
     }
 ?>

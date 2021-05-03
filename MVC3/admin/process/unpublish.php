@@ -25,14 +25,15 @@ if(isset($_POST)){
 			$mail=$row['email'];
 			$title=$row['title'];
 			$admin_remark=$row['admin_remark'];
-			
-           $to_email = "janvibhalala15@gmail.com";
+
+			$to_email = "janvibhalala15@gmail.com";
 			//$to_email = $mail;
-           $subject = "Sorry! We need to remove your notes from our portal.";
-           $body = "Hello $name $surname, <br/> <br/>We want to inform you that, your note $title has benn removed from portal.Please find our remarks as below -<br/>$admin_remark<br/><br/>Regards,<br/>Notes Marketplace";
-           $name = "Unpublishing Book";
+			$subject = "Sorry! We need to remove your notes from our portal.";
+			$body = "Hello $name $surname, <br /> <br />We want to inform you that, your note $title has benn removed from portal.Please find our remarks as below -<br />$admin_remark<br /><br />Regards,<br />Notes Marketplace";
+			$name = "Unpublishing Book";
+			$altBody="Sorry! We need to remove your notes from our portal.";
              
-                if(sendMail($to_email,$name,$subject,$body,$altBody,$i)){
+                if(sendMail($to_email,$name,$subject,$body,$altBody,0)){
                     $msg="Password is changed";
                 }
                 else{

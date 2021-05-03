@@ -1,6 +1,11 @@
 <?php 
-    include "connection.php";
-    ob_start();
+include "connection.php";
+ob_start();
+
+$select="SELECT note.note_id,note.title,note.created_date,note.action_by,note.admin_remark,note.user_id,category.name,users.fname,users.lname,u.fname AS name1, u.lname AS surname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN users AS u ON note.action_by=u.user_id WHERE ";
+$where="note.status_id=4 AND note.is_active=1 ";
+$order_by="ORDER BY note.published_date DESC";
+
 if( !empty($_POST)){
     $myData=$_POST;
     $data=$myData['query'];
@@ -18,26 +23,23 @@ if( !empty($_POST)){
 	
     if($value !=''){
         if($name !='searchBytxt'){
-            
-			$query="SELECT note.note_id,note.title,note.created_date,note.action_by,note.admin_remark,note.user_id,category.name,users.fname,users.lname,u.fname AS name1, u.lname AS surname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN users AS u ON note.action_by=u.user_id WHERE note.status_id=4 AND users.fname='". $value ."' ORDER BY note.published_date DESC";
+			$where .="AND users.fname='". $value ."' ";
         }
         else{
-			$query="SELECT note.note_id,note.title,note.created_date,note.action_by,note.admin_remark,note.user_id,category.name,users.fname,users.lname,u.fname AS name1, u.lname AS surname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN users AS u ON note.action_by=u.user_id WHERE note.status_id=4 AND (title LIKE '".$value1."' OR name LIKE '".$value1."' OR users.fname LIKE '".$value1."' OR users.lname LIKE '".$value1."'  OR note.created_date LIKE '".$value1."' OR u.fname LIKE '".$value1."' OR u.lname LIKE '".$value1."' OR admin_remark LIKE '".$value1."') ORDER BY note.published_date DESC";
             
-           
+           $where .="AND (title LIKE '".$value1."' OR name LIKE '".$value1."' OR users.fname LIKE '".$value1."' OR users.lname LIKE '".$value1."'  OR note.created_date LIKE '".$value1."' OR u.fname LIKE '".$value1."' OR u.lname LIKE '".$value1."' OR admin_remark LIKE '".$value1."') ";
         }
         
     }
     else{
-     $query="SELECT note.note_id,note.title,note.created_date,note.action_by,note.admin_remark,note.user_id,category.name,users.fname,users.lname,u.fname AS name1, u.lname AS surname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN users AS u ON note.action_by=u.user_id WHERE note.status_id=4 ORDER BY note.published_date DESC";
-    
+     $where="note.status_id=4 AND note.is_active=1 ";
     }
     
 }
 else{
-     $query="SELECT note.note_id,note.title,note.created_date,note.action_by,note.admin_remark,note.user_id,category.name,users.fname,users.lname,u.fname AS name1, u.lname AS surname FROM `note` JOIN category ON note.category_id=category.category_id JOIN users ON note.user_id=users.user_id JOIN users AS u ON note.action_by=u.user_id WHERE note.status_id=4 ORDER BY note.published_date DESC";
-    
+     $where="note.status_id=4 AND note.is_active=1 ";
 }
+$query=$select . $where . $order_by;
 //pagination
 $d="";
 $current_page=1;
@@ -102,31 +104,31 @@ if(isset($_GET['page'])){
                         </thead>
                         <tbody>';
 		$i=1;
-            while($row=mysqli_fetch_assoc($result1)){
-				
-                $id=$row['note_id'];
-            $time=strtotime($row['created_date']);
-           $t=date("d-m-Y, H:i:s", $time);                                   
-                                            
-            $output .='<tr>
-                                <td>'.$i.'</td>
-                                <td class="note_title pl-0" id="'.$id.'">'.$row['title'].'</td>
-                                <td>'.$row['name'].'</td>
-                                <td>'.$row['fname'].' '.$row['lname'].' <img src="img/pre-login/eye.png" class="float-right view_seller" id="'.$row['user_id'].'">
-                                <td>'.$t.'</td>
-                                <td class="pr-0">'.$row['name1'].' '.$row['surname'].'</td>
-                                <td class="pr-0">'.$row['admin_remark'].'</td>
-                                <td>
-                                    <div class="dropdown float-right align-middle">
-                                        <a class="toggle" href="#" data-toggle="dropdown"><img src="img/icons/dots.png" class="img-responsive"></a>
-                                        <ul class="dropdown-menu dropdown-menu-left float-right">
-                                            <li class="dropdown-item remark-btn-add" id="'.$id.'"><a href="#">Approve</a></li>
-                                            <li class="dropdown-item"><a href="process/download.php?note_id='.$id.'">Download Notes</a></li>
-                                            <li class="dropdown-item"><a href="notes-detail.php?note_id='.$id.'">View More Details</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>';
+        while($row=mysqli_fetch_assoc($result1)){
+
+			$id=$row['note_id'];
+			$time=strtotime($row['created_date']);
+			$t=date("d-m-Y, H:i:s", $time);
+
+			$output .='<tr>
+        	<td>'.$i.'</td>
+        	<td class="note_title pl-0" id="'.$id.'">'.$row['title'].'</td>
+        	<td>'.$row['name'].'</td>
+        	<td>'.$row['fname'].' '.$row['lname'].' <img src="img/pre-login/eye.png" class="float-right view_seller" id="'.$row['user_id'].'">
+        	<td>'.$t.'</td>
+        	<td class="pr-0">'.$row['name1'].' '.$row['surname'].'</td>
+        	<td class="pr-0">'.$row['admin_remark'].'</td>
+        	<td>
+            		<div class="dropdown float-right align-middle">
+            			<a class="toggle" href="#" data-toggle="dropdown"><img src="img/icons/dots.png" class="img-responsive"></a>
+            			<ul class="dropdown-menu dropdown-menu-left float-right">
+            				<li class="dropdown-item remark-btn-add" id="'.$id.'"><a href="#">Approve</a></li>
+            				<li class="dropdown-item"><a href="process/download.php?note_id='.$id.'">Download Notes</a></li>
+            				<li class="dropdown-item"><a href="notes-detail.php?note_id='.$id.'">View More Details</a></li>
+            			</ul>
+            		</div>
+            	</td>
+                </tr>';
 				$i++;
             
         }

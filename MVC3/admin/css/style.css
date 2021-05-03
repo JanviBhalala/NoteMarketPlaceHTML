@@ -23,6 +23,12 @@ section {
 
 
 }
+.error {
+    color: #ff0000 !important;
+}
+.green_txt {
+    color: forestgreen !important;
+}
 
 #label-rememberMe {
     line-height: 25px;

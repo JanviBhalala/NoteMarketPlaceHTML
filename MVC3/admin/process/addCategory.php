@@ -32,17 +32,17 @@
             $r1=mysqli_query($conn, $q1);
             if($r1){
 				$msg="Category is added.";
-				header("location:../admin-add-category.php?msg=$q1");
+				header("location:../manage-category.php");
             }
             else{
-				$msg="Please try again.";
-				header("location:../admin-add-category.php?msg=$msg");
+				$msg1="Please try again.";
+				header("location:../manage-category.php");
             }
 		
         
     }
     else{
-        $msg="Please Fill All fields";
-		header("location:../admin-add-category.php?msg=$msg");
+        $msg1="Please Fill All fields";
+		header("location:../admin-add-category.php?msg1=$msg1");
     }
 ?>

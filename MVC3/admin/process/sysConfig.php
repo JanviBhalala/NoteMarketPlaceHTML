@@ -104,17 +104,14 @@
 				header("location:../manage-system-configuration.php?msg=$msg");
 			}
 			else{
-				$msg="Please try again.";
-				echo $msg;
-				header("location:../manage-system-configuration.php?msg=$msg");
+				$msg1="Please try again.";
+				header("location:../manage-system-configuration.php?msg1=$msg1");
 			}
 			
 		}
-		
-      
     }
     else{
-        $msg="Please Fill All fields";
-		header("location:../manage-system-configuration.php?msg=$msg");
+        $msg1="Please Fill All fields";
+		header("location:../manage-system-configuration.php?msg1=$msg1");
     }
 ?>

@@ -21,7 +21,9 @@ if(isset($_GET['note_id'])){
     $document_path=$row['file_path'];
     $seller_id=$row['user_id'];
 	$mail=$row['email'];
-    
+    if($row['is_paid']==3){
+       $is_paid=1; 
+    }
    if($row['is_paid']=='0'){
         download($d,$conn);
     }
@@ -38,13 +40,13 @@ if(isset($_GET['note_id'])){
             }
             else{
                // $msg 'Your request is under process';
-                header("location:../notes-detail.php?msg='Your request is under process'");
+                header("location:../notes-detail.php?msg='Your request is under process'&note_id=$d");
             }
         }
         else{
             $today = date("Y-m-d H:i:s"); 
             
-            $insert="INSERT INTO order_note(seller_id, user_id, note_id, attachment_path, is_paid, purchase_price, note_title, note_category, created_date) VALUES ('$seller_id','$user_id','$d','$document_path','$is_paid','$price','$title','$category','$today')";
+            $insert="INSERT INTO order_note(seller_id, user_id, note_id, attachment_path,purchase_price, note_title, note_category, created_date) VALUES ('$seller_id','$user_id','$d','$document_path','$price','$title','$category','$today')";
             
             $result_insert=mysqli_query($conn, $insert);
                 
@@ -58,17 +60,17 @@ if(isset($_GET['note_id'])){
 				$name = "Purchase Book";
              
                 if(sendMail($to_email,$name,$subject,$body,$altBody,$i)){
-                    header("location:../notes-detail.php?msg='Note is Paid and it is requested to publisher to allow you to Download this note'");
+                    header("location:../notes-detail.php?msg='Note is Paid and it is requested to publisher to allow you to Download this note'&note_id=$d");
                 }
                 else{
                     echo "error in sending mail. Mailer Error:{ $mail->ErrorInfo}";
-					header("location:../notes-detail.php?msg='error in sending mail'");
+					header("location:../notes-detail.php?msg='error in sending mail'&note_id=$d");
                 }
 				
                 
             }
             else{
-                header("location:../notes-detail.php?msg='please try again'");
+                header("location:../notes-detail.php?msg='please try again'&note_id=$d");
             }
             
         }

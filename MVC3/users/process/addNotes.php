@@ -114,10 +114,11 @@ include "mail.php";
          }
          if(isset($_POST['save_note'])){
             $status = 1; 
-			$update=$_POST['save_note'];
+			$update=$_POST['note_id'];
          }
          else if(isset($_POST['publish_note'])){
             $status = 2; 
+			$update=$_POST['note_id'];
          }
 		 $today = date("Y-m-d H:i:s"); 
         $update_q .=" title='$title', category_id='$category', description='$comments', is_paid=$sell_type,  price='$price', user_id='$user_id',status_id='$status', updated_date='$today' Where note_id='$update'  ";
@@ -139,7 +140,6 @@ include "mail.php";
              $today = date("Y-m-d H:i:s"); 
              $insert="INSERT INTO documents(file_path, note_id, file_name,created_date) VALUES ('$destination', '$note_id', '$filename1','$today' )";
              $r=mysqli_query($conn, $insert);
-             
             if(isset($_POST['publish_note']) && $r){
                $q="SELECT email FROM users where role_id = 3";
                $r=mysqli_query($conn, $q);
@@ -155,7 +155,7 @@ include "mail.php";
                      
                 if(sendMail($to_email,$name,$subject,$body,$altBody,$i)){
                     $msg="Note is requested to be published.";
-                   header("location:../add-notes.php?msg={$msg}");
+                   header("location:../dashboard.php");
                          
                 }
                 else{
@@ -164,7 +164,7 @@ include "mail.php";
            } 
             else{
                 $msg="Note is saved as Draft.";
-                header("location:../add-notes.php?msg={$msg}");
+                header("location:../dashboard.php");
             } 
          }
 		 echo $update_q;

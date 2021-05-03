@@ -1,8 +1,8 @@
 <?php 
-    include "connection.php";
-    ob_start();
+include "connection.php";
+ob_start();
 if( !empty($_POST)){
-      // print_r($_POST); 
+     // print_r($_POST); 
         $myData=$_POST;
     $data=$myData['query'];
     

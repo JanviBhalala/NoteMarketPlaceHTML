@@ -6,7 +6,7 @@
     ob_start();
     $user=$_SESSION["user_id"];
     
-    $query="SELECT note_id,title,admin_remark,category.name FROM `note` JOIN category ON note.category_id=category.category_id WHERE note.status_id =4 AND note.user_id='$user' ORDER BY title DESC";
+    $query="SELECT note_id,title,admin_remark,category.name FROM `note` JOIN category ON note.category_id=category.category_id WHERE note.status_id =4 AND note.user_id='$user' AND note.is_active=1 ORDER BY title DESC";
     $result=mysqli_query($conn, $query);
 ?>
 
@@ -14,6 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Rejected Notes</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 

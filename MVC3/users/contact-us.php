@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact Us</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -28,7 +32,7 @@
         <?php include "includes/header.php"; ?>
         <!-- Header Ends -->
 
-
+						
         <!-- Contact Us Banner-->
         <section id="top_banner">
             <div class="banner">
@@ -40,9 +44,22 @@
 
         <!-- Contact Us Form-->
         <section id="contact-us-form mr-0">
+           
             <form id="main-contact-form" class="contact-form mr-0" name="contact-form" method="post" action="process/contactUsBack.php">
 
                 <div class="container">
+                   <?php
+                        if( !empty( $_REQUEST['msg'] ) )
+                            {
+                                echo sprintf( '<br/><p class="txt_green">%s</p>', $_REQUEST['msg'] );
+                            }
+                        ?>
+                        <?php
+                        if( !empty( $_REQUEST['msg1'] ) )
+                            {
+                                echo sprintf( '<br/><p class="error">%s</p>', $_REQUEST['msg1'] );
+                            }
+                        ?>
                     <div class="section-heading  animated slideInUp">
                         <h2 class="pb-1 mb-0">Get in Touch</h2>
                         <p class="mb-3">Let us know how to get back to you</p>

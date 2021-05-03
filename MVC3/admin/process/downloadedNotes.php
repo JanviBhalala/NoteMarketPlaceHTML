@@ -1,6 +1,9 @@
 <?php 
-    include "connection.php";
-    ob_start();
+include "connection.php";
+ob_start();
+$select="SELECT users.user_id,u.user_id AS uid,order_note.note_id,order_note.note_title,order_note.download_time,order_note.is_paid,order_note.purchase_price,category.name,users.fname,users.lname,u.fname AS seller,u.lname AS seller_surname FROM `order_note` JOIN users AS u ON order_note.seller_id=u.user_id JOIN category ON order_note.note_category=category.category_id JOIN users ON order_note.user_id=users.user_id WHERE ";
+$where="order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 AND order_note.is_active=1 ";
+$order_by="ORDER BY order_note.download_time DESC";
 if( !empty($_POST)){
     $myData=$_POST;
     $data=$myData['query'];
@@ -18,27 +21,23 @@ if( !empty($_POST)){
 	
     if($value !=''){
         if($name !='searchBytxt'){
-            
-			$query="SELECT users.user_id,u.user_id AS uid,order_note.note_id,order_note.note_title,order_note.download_time,order_note.is_paid,order_note.purchase_price,category.name,users.fname,users.lname,u.fname AS seller,u.lname AS seller_surname FROM `order_note` JOIN users AS u ON order_note.seller_id=u.user_id JOIN category ON order_note.note_category=category.category_id JOIN users ON order_note.user_id=users.user_id WHERE order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 AND ".$name."='".$value."' ORDER BY order_note.download_time DESC";
+			$where .="AND ".$name."='".$value."' ";
         }
         else{
-			$query="SELECT users.user_id,u.user_id AS uid,order_note.note_id,order_note.note_title,order_note.download_time,order_note.is_paid,order_note.purchase_price,category.name,users.fname,users.lname,u.fname AS seller,u.lname AS seller_surname FROM `order_note` JOIN users AS u ON order_note.seller_id=u.user_id JOIN category ON order_note.note_category=category.category_id JOIN users ON order_note.user_id=users.user_id WHERE order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 AND (order_note.note_title LIKE '".$value1."' OR name LIKE '".$value1."' OR users.fname LIKE '".$value1."' OR users.lname LIKE '".$value1."'  OR order_note.download_time LIKE '".$value1."' OR u.fname LIKE '".$value1."' OR u.lname LIKE '".$value1."' OR order_note.purchase_price LIKE '".$value1."')ORDER BY order_note.download_time DESC";
-            
-           
+			$where .=" AND (order_note.note_title LIKE '".$value1."' OR name LIKE '".$value1."' OR users.fname LIKE '".$value1."' OR users.lname LIKE '".$value1."'  OR order_note.download_time LIKE '".$value1."' OR u.fname LIKE '".$value1."' OR u.lname LIKE '".$value1."' OR order_note.purchase_price LIKE '".$value1."')";
         }
         
     }
     else{
-     $query="SELECT users.user_id,u.user_id AS uid,order_note.note_id,order_note.note_title,order_note.download_time,order_note.is_paid,order_note.purchase_price,category.name,users.fname,users.lname,u.fname AS seller,u.lname AS seller_surname FROM `order_note` JOIN users AS u ON order_note.seller_id=u.user_id JOIN category ON order_note.note_category=category.category_id JOIN users ON order_note.user_id=users.user_id WHERE order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 ORDER BY order_note.download_time DESC";
+     $where="order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 AND order_note.is_active=1 ";
     
     }
     
 }
 else{
-     $query="SELECT users.user_id,u.user_id AS uid,order_note.note_id,order_note.note_title,order_note.download_time,order_note.is_paid,order_note.purchase_price,category.name,users.fname,users.lname,u.fname AS seller,u.lname AS seller_surname FROM `order_note` JOIN users AS u ON order_note.seller_id=u.user_id JOIN category ON order_note.note_category=category.category_id JOIN users ON order_note.user_id=users.user_id WHERE order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 ORDER BY order_note.download_time DESC";
-    
+	$where="order_note.is_allowed_to_download=1 AND order_note.is_attachment_downloaded=1 AND order_note.is_active=1 ";
 }
-
+$query=$select . $where . $order_by;
 //pagination
 $d="";
 $current_page=1;

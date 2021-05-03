@@ -6,7 +6,7 @@
     ob_start();
     $user=$_SESSION["user_id"];
     
-   $query="SELECT type_id, type, description, type.created_date, type.created_by, type.is_active,users.fname,users.lname FROM type JOIN users ON type.created_by=users.user_id ORDER BY type.created_date DESC";
+   $query="SELECT type_id, type, description, type.created_date, type.created_by, type.is_active,users.fname,users.lname FROM type JOIN users ON type.created_by=users.user_id WHERE type.is_active=1 ORDER BY type.created_date DESC";
     $result=mysqli_query($conn, $query);
 ?>
 
@@ -15,6 +15,10 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Manage Type</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 	<!-- Bootstrap CSS -->
@@ -139,6 +143,10 @@
 
 	<!-- Wow JS -->
 	<script src="js/Wow/wow.min.js"></script>
+	
+		<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

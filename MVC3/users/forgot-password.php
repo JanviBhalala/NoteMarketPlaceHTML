@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forgot Password</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -34,7 +38,13 @@
                         <?php
                         if( !empty( $_REQUEST['msg'] ) )
                             {
-                                echo sprintf( '<p>%s</p>', $_REQUEST['msg'] );
+                                echo sprintf( '<br/><p class="txt_green">%s</p>', $_REQUEST['msg'] );
+                            }
+                        ?>
+                        <?php
+                        if( !empty( $_REQUEST['msg1'] ) )
+                            {
+                                echo sprintf( '<br/><p class="error">%s</p>', $_REQUEST['msg1'] );
                             }
                         ?>
                         <!-- <p><//?php echo $msg; ?></p>-->

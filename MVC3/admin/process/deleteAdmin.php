@@ -4,7 +4,7 @@
 	$msg='';
 	if(!empty( $_REQUEST['id'] )){
 		$user=$_GET['id'];
-		$query="DELETE FROM users WHERE users.user_id = '$user'";
+		$query="UPDATE users SET is_active=0 WHERE users.user_id = '$user'";
     	$result=mysqli_query($conn, $query);
 		if($result){
 			header("location:../manage-administrator.php");

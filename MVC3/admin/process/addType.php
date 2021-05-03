@@ -32,17 +32,17 @@
             $r1=mysqli_query($conn, $q1);
             if($r1){
 				$msg="Type is added.";
-				header("location:../admin-add-type.php?msg=$msg");
+				header("location:../manage-type.php");
             }
             else{
-				$msg="Please try again.";
-				header("location:../admin-add-type.php?msg=$msg");
+				$msg1="Please try again.";
+				header("location:../manage-type.php");
             }
 		
         
     }
     else{
-        $msg="Please Fill All fields";
-		header("location:../admin-add-type.php?msg=$msg");
+        $msg1="Please Fill All fields";
+		header("location:../admin-add-type.php?msg1=$msg1");
     }
 ?>

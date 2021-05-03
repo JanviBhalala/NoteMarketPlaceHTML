@@ -19,6 +19,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>My Profile</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -41,7 +45,7 @@
 	<!-- My Profile -->
 	<section id="my-profile">
 		<div class="container">
-			<form id="my-profile-form" class="contact-form" method="post" action="process/addProfile.php" enctype="multipart/form-data">
+			<form id="my-profile-form" name="my_profile" class="contact-form" method="post" action="process/addProfile.php" enctype="multipart/form-data">
 
 				<div class="table-heading animated fadeInDown pt-4">
 					<h2>My Profile</h2>
@@ -49,38 +53,44 @@
 				<?php
                         if( !empty( $_REQUEST['msg'] ) )
                             {
-                                echo sprintf( '<br/><p>%s</p>', $_REQUEST['msg'] );
+                                ?><div class="green_txt"><?php echo sprintf( '<br/><p>%s</p>', $_REQUEST['msg'] );?><div><?php
+                            }
+                        ?>
+                        <?php
+                        if( !empty( $_REQUEST['msg1'] ) )
+                            {
+                                ?><div class="error"><?php echo sprintf( '<br/><p>%s</p>', $_REQUEST['msg1'] );?><div><?php
                             }
                         ?>
 				<div class="row contact-wrap">
 					<div class="status alert alert-success" style="display: none"></div>
 
 					<div class="col-md-6 col-sm-12 col-xs-12 animated slideInLeft">
-						<div class="form-group">
+						<div class="form-group  mb-4">
 							<label class="required">First Name</label>
 							<input type="text" name="fname" <?php if($c==1){
-							?>value="<?php echo $r['fname']; ?>" <?php } ?> class="form-control" required="required " placeholder="Enter your first name">
+							?>value="<?php echo $r['fname']; ?>" <?php } ?> class="mb-0 form-control" required="required " placeholder="Enter your first name">
 						</div>
-						<div class="form-group">
+						<div class="form-group  mb-4">
 							<label class="required">Last Name</label>
 							<input type="text" name="lname" <?php if($c==1){
-							?>value="<?php echo $r['lname']; ?>" <?php } ?> class="form-control" required="required " placeholder="Enter your last name">
+							?>value="<?php echo $r['lname']; ?>" <?php } ?> class="mb-0 form-control" required="required " placeholder="Enter your last name">
 						</div>
-						<div class="form-group">
+						<div class="form-group  mb-4">
 							<label class="required">Email</label>
 							<input type="email" name="email" <?php if($c==1){
-							?>value="<?php echo $r['email']; ?>" <?php } ?> class="form-control" required="required" placeholder="Enter your email address">
+							?>value="<?php echo $r['email']; ?>" <?php } ?> class="mb-0 form-control" required="required" placeholder="Enter your email address">
 						</div>
-						<div class="form-group">
+						<div class="form-group  mb-4">
 							<label class="required">Seconary Email</label>
 							<input type="email" name="email2" <?php if($c==1){
-							?>value="<?php echo $r['email2']; ?>" <?php } ?> class="form-control" required="required" placeholder="Enter your email address">
+							?>value="<?php echo $r['email2']; ?>" <?php } ?> class="mb-0 form-control" required="required" placeholder="Enter your email address">
 						</div>
-						<div class="form-group">
+						<div class="form-group  mb-4">
 							<label class="required">Phone Number</label>
 							<div class="row">
 								<div class="styled-select form-control phone">
-									<select name="phone" id="phone-code" class="form-control ">
+									<select name="phone" id="phone-code" class="form-control mb-0">
 										<?php if($c==1){
 							?><option value=" <?php echo $r['email2']; ?>"><?php echo $r['phone_code'];  ?></option><?php } ?>
 										<option value="+91">+91</option>
@@ -88,11 +98,11 @@
 										<option value="other">Other</option>
 									</select>
 								</div>
-								<input type="number" name="phone-number" <?php if($c==1){
-							?>value="<?php echo $r['phone']; ?>" <?php } ?> class="form-phone-number col-md-auto" required="required" placeholder="Enter your email address">
+								<input type="number" name="phone_number" <?php if($c==1){
+							?>value="<?php echo $r['phone']; ?>" <?php } ?> class="mb-0 form-phone-number col-md-auto" required="required" placeholder="Enter your email address">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group  ">
 							<label class="required">Profile Picture</label>
 							<input type="file" name="profile_pic" class="form-control input-img">
 							<label class="file-label">Upload a picture</label>
@@ -121,6 +131,10 @@
 
 	<!-- Wow JS -->
 	<script src="js/Wow/wow.min.js"></script>
+	
+	<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

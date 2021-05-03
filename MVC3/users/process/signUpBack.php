@@ -47,7 +47,9 @@ $b=1;
         }
         else{
             //inserting data into DB
-                 $query="INSERT INTO users (role_id, fname, lname, email, password) VALUES ( 1, '$fname', '$lname ' , '$email' , '$pass')";
+			$hash = password_hash($pass,
+		PASSWORD_DEFAULT);
+                 $query="INSERT INTO users (role_id, fname, lname, email, password) VALUES ( 1, '$fname', '$lname ' , '$email' , '$hash')";
                  $result=mysqli_query($conn, $query);
                 
                  //send mail if data is inserted
@@ -56,14 +58,14 @@ $b=1;
                      $to_email = $email;
                      $altBody="You are registered. Now you need to verify email.";
                      $subject = "Email Verifivcation";
-                     $body = "<table><tr><br/><br/></tr><tr><img src='cid:logo' alt='logo'></tr><tr><h2 style='font-size: 26px; font-weight: 600; line-height: 30px;color: #6255a5; margin: 50px 0 30px 0;'>Email Varification</h2></tr><tr> <h4 style='font-size: 18px; font-weight: 600; line-height: 22px; color: #333333; margin: 0 0 20px 0;'>Dear $fname,</h4></tr> <tr><p style='font-size: 16px; font-weight: 400; line-height: 20px; color: #333333; margin-bottom: 0 0 100px 0;'>Thanks for Signing up!<br>Simply click below for email verification.</p></tr><tr><button style='outline: 0;background-color: #6255a5;width: 100%;border: 0;padding: 10px;transition: all 0.3 ease;cursor: pointer;border-radius: 3px;'><a style ='text-decoration: none;text-transform: uppercase;color: #FFFFFF;font-size: 18px;font-weight: 600;' href='http://localhost/NoteMarketPlaceHTML/users/process/emailcheck.php?id=$last_id'>Verify Email Address</a></button></tr></table>";
+                     $body = "<table><tr><br/><br/></tr><tr><img src='cid:logo' alt='logo'></tr><tr><h2 style='font-size: 26px; font-weight: 600; line-height: 30px;color: #6255a5; margin: 50px 0 30px 0;'>Email Varification</h2></tr><tr> <h4 style='font-size: 18px; font-weight: 600; line-height: 22px; color: #333333; margin: 0 0 20px 0;'>Dear $fname,</h4></tr> <tr><p style='font-size: 16px; font-weight: 400; line-height: 20px; color: #333333; margin-bottom: 0 0 100px 0;'>Thanks for Signing up!<br>Simply click below for email verification.</p></tr><tr><button style='outline: 0;background-color: #6255a5;width: 100%;border: 0;padding: 10px;transition: all 0.3 ease;cursor: pointer;border-radius: 3px;'><a style ='text-decoration: none;text-transform: uppercase;color: #FFFFFF;font-size: 18px;font-weight: 600;' href='http://localhost/MVC3/users/process/emailcheck.php?id=$last_id'>Verify Email Address</a></button></tr></table>";
 
                      $name = "$fname $lname";
 
                      
-                     if(sendMail($to_email,$name,$subject,$body,$altBody,$i)){
+                     if(sendMail($to_email,$name,$subject,$body,$altBody,1)){
                          $msg="Email is sent to your email.";
-                          header("location:../signup.php?msg={$msg}");
+                          header("location:../signup.php?msg1={$msg}");
                          
                      }
                      else{
@@ -87,6 +89,7 @@ $b=1;
        
     }
     else{
-        echo "nop";
+        $msg="Please try again";
+              header("location:../signup.php?msg={$msg}");
     }
 ?>

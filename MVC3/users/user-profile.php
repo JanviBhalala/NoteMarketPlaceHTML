@@ -17,6 +17,7 @@
         $result2=mysqli_query($conn, $q2);
         $row= mysqli_fetch_assoc($result);
         $row2= mysqli_fetch_assoc($result2);
+		
         
         if($result && $result2){
             $i=1;
@@ -42,6 +43,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User Profile</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -87,6 +92,11 @@
                         if( !empty( $_REQUEST['msg'] ) )
                             {
                                 echo sprintf( '<br/><p class="txt_green">%s</p>', $_REQUEST['msg'] );
+                            }
+                        
+                        if( !empty( $_REQUEST['msg1'] ) )
+                            {
+                                echo sprintf( '<br/><p class="error">%s</p>', $_REQUEST['msg1'] );
                             }
                         ?>
                 <form id="main-contact-form" class="contact-form" name="contact-form profile_form" method="post" action="process/addProfile.php" enctype="multipart/form-data">

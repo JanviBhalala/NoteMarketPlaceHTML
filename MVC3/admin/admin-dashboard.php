@@ -1,11 +1,43 @@
 <?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
+<?php include "process/connection.php";
+    ob_start();
+	$today = date_create(date("Y-m-d H:i:s"));
+	$week=date_sub($today, date_interval_create_from_date_string('7 days'));
+	$w=date_format($week,"Y-m-d H:i:s");
+    $user=$_SESSION["user_id"];
+	$d="SELECT COUNT(order_id) AS downloads FROM `order_note` WHERE is_attachment_downloaded=1 AND order_note.download_time >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY AND order_note.download_time < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY";
+	$user="SELECT COUNT(user_id) AS user FROM `users` WHERE is_active=1";
+	$in_review="SELECT COUNT(note_id) AS inReview FROM `note` WHERE status_id=2 AND user_id=3 AND is_active=1";
+	$in_review=mysqli_query($conn, $in_review);
+	$d=mysqli_query($conn, $d);
+	$user=mysqli_query($conn, $user);
+	$inReview=0;
+	$downloads=0;
+	$users=0;
+	if($in_review && mysqli_num_rows($in_review) != 0){
+		$data=mysqli_fetch_assoc($in_review);
+		$inReview=$data['inReview'];
+	}
+	if($d && mysqli_num_rows($d) != 0){
+		$data=mysqli_fetch_assoc($d);
+		$downloads=$data['downloads'];
+	}
+	if($user && mysqli_num_rows($user) != 0){
+		$data=mysqli_fetch_assoc($user);
+		$users=$data['user'];
+	}
+?>
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Dashboard</title>
+	
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -20,6 +52,7 @@
 
 	<!-- Custom CSS  -->
 	<link rel="stylesheet" href="css/datatables/dataTables.bootstrap4.min.css">
+	
 
 
 
@@ -45,7 +78,7 @@
 
 						<div class="col-md-4 animated flipInY" onclick="window.location.href = 'notes-under-review.php';">
 							<div class="item-container text-center">
-								<h4>20</h4>
+								<h4><?php echo $inReview; ?></h4>
 								<p>Number of Notes in Review for Publish</p>
 							</div>
 
@@ -54,7 +87,7 @@
 
 						<div class="col-md-4 animated flipInY" onclick="window.location.href = 'downloaded-notes.php';">
 							<div class="item-container  text-center">
-								<h4>103</h4>
+								<h4><?php echo $downloads; ?></h4>
 								<p>Number of New NotesDownloaded<br> (Last 7 days)</p>
 							</div>
 
@@ -63,7 +96,7 @@
 						<div class="col-md-4 animated flipInY" onclick="window.location.href = 'members.php';">
 
 							<div class="item-container text-center">
-								<h4>223</h4>
+								<h4><?php echo $users; ?></h4>
 								<p>Number of New Registrations(Last 7 Days)</p>
 							</div>
 
@@ -166,6 +199,10 @@
 
 	<!-- Wow JS -->
 	<script src="js/Wow/wow.min.js"></script>
+	
+		<!-- Validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
 
 	<!-- Custome JS -->
 	<script src="js/script.js"></script>

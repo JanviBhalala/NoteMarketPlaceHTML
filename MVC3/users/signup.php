@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Signup</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -31,9 +35,15 @@
                         <h3>Create an Account</h3>
                         <p>Enter your details to signup.</p>
                         <?php
+                        if( !empty( $_REQUEST['msg1'] ) )
+                            {
+                                echo sprintf( '<p class="txt_green" style="color:forestgreen;">%s</p>', $_REQUEST['msg1'] );
+                            }
+                        ?>
+                        <?php
                         if( !empty( $_REQUEST['msg'] ) )
                             {
-                                echo sprintf( '<p class="txt_green">%s</p>', $_REQUEST['msg'] );
+                                echo sprintf( '<p class="error" style="color:#ff0000;">%s</p>', $_REQUEST['msg'] );
                             }
                         ?>
                     </div>

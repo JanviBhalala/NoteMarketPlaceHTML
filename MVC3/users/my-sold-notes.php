@@ -7,7 +7,7 @@
     ob_start();
     $user=$_SESSION["user_id"];
     
-    $query="SELECT note_id,users.email,category.name,note_title,is_paid,purchase_price,is_attachment_downloaded,download_time FROM order_note JOIN users ON order_note.user_id = users.user_id JOIN category ON order_note.note_category = category.category_id WHERE seller_id = '$user' ORDER BY download_time DESC";
+    $query="SELECT note_id,users.email,category.name,note_title,is_paid,purchase_price,is_attachment_downloaded,download_time FROM order_note JOIN users ON order_note.user_id = users.user_id JOIN category ON order_note.note_category = category.category_id WHERE seller_id = '$user'  AND order_note.is_active=1 ORDER BY download_time DESC";
     $result=mysqli_query($conn, $query);
 ?>
 
@@ -15,6 +15,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Sold Notes</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png">
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -72,6 +76,7 @@
                 <!-- table -->
                 <section class="table-container-row10" id="my-sold-notes-table">
                     <div class="table-responsive  animated slideInUp">
+                       <?php if($result && mysqli_num_rows($result) != 0){ ?>
                         <table class="table  my-tables paginated" id="myTable1">
                             <thead>
                                 <tr>
@@ -99,7 +104,7 @@
                                     <?php }
                                         if($row['is_paid'] == 0){
                                     ?>
-                                    <td><?php echo "Free"?></td>
+                                    <td><?php echo "Free"; ?></td>
                                     <?php } ?>
                                     <td>$<?php echo $row['purchase_price']; ?></td>
                                     <td class="text-center">
@@ -122,6 +127,9 @@
                                 <?php $i++; }?>
                             </tbody>
                         </table>
+                        <?php } else{?>
+                        <h5 class="text-center mt-3">No Record Found</h5>
+                        <?php } ?>
                     </div>
                     <!-- <div class="pagination-container  ">
                         <nav>
